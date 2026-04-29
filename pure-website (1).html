@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PURE — Menswear</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#080808;--white:#f8f6f1;--cream:#f0ece2;
+  --gold:#c8a45a;--gold-dark:#a8842a;--dark:#141414;
+  --gray:#888;--border:rgba(255,255,255,0.09);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--black);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0 48px;height:64px;background:rgba(8,8,8,0.95);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border);}
+.logo{font-family:'Playfair Display',serif;font-size:24px;letter-spacing:8px;cursor:pointer;user-select:none;}
+.logo em{color:var(--gold);font-style:normal;}
+.nav-cats{display:flex;gap:28px;}
+.nav-cats a{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.45);cursor:pointer;transition:color .25s;padding:4px 0;border-bottom:1px solid transparent;}
+.nav-cats a:hover,.nav-cats a.active-nav{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.cart-pill{display:flex;align-items:center;gap:8px;background:var(--gold);color:#000;border:none;padding:8px 20px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;cursor:pointer;font-weight:600;transition:background .2s;}
+.cart-pill:hover{background:var(--gold-dark);}
+.cart-count{background:#000;color:var(--gold);border-radius:50%;width:18px;height:18px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
+/* ── HERO ── */
+.hero{height:100vh;min-height:600px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;}
+.hero-visual{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);}
+.hv-col{position:relative;overflow:hidden;}
+.hv-col .hv-fill{position:absolute;inset:0;transition:transform 8s ease;}
+.hero:hover .hv-col .hv-fill{transform:scale(1.05);}
+.hv-col:nth-child(1) .hv-fill{background:linear-gradient(160deg,#1a1520 0%,#0d0d14 100%);}
+.hv-col:nth-child(2) .hv-fill{background:linear-gradient(180deg,#141414 0%,#0a0a0a 100%);}
+.hv-col:nth-child(3) .hv-fill{background:linear-gradient(200deg,#14140e 0%,#0d0d0a 100%);}
+.hv-col::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.55);}
+/* decorative fabric texture lines */
+.hv-col:nth-child(1)::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 40px,rgba(201,164,90,0.03) 40px,rgba(201,164,90,0.03) 41px);z-index:1;}
+.hv-col:nth-child(3)::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,0.02) 30px,rgba(255,255,255,0.02) 31px);z-index:1;}
+/* Silhouette SVG figures */
+.hv-fig{position:absolute;bottom:0;left:50%;transform:translateX(-50%);z-index:2;opacity:0.18;}
+
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(0,0,0,0.9) 0%,transparent 100%);z-index:3;}
+.hero-content{position:relative;z-index:4;}
+.hero-eyebrow{font-size:9px;letter-spacing:6px;color:var(--gold);margin-bottom:20px;opacity:.8;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(72px,10vw,120px);letter-spacing:16px;line-height:1;margin-bottom:16px;background:linear-gradient(180deg,#fff 60%,rgba(255,255,255,0.4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:11px;letter-spacing:5px;color:rgba(255,255,255,0.35);margin-bottom:48px;}
+.hero-btns{display:flex;gap:16px;justify-content:center;}
+.btn-gold{background:var(--gold);color:#000;border:none;padding:14px 44px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:3px;cursor:pointer;font-weight:700;transition:all .25s;}
+.btn-gold:hover{background:var(--gold-dark);transform:translateY(-1px);}
+.btn-outline{background:none;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);padding:14px 44px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:3px;cursor:pointer;transition:all .25s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;opacity:.5;transition:opacity .2s;}
+.hero-scroll:hover{opacity:1;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:scrollAnim 2s ease-in-out infinite;}
+@keyframes scrollAnim{0%,100%{opacity:.3;transform:scaleY(1);}50%{opacity:1;transform:scaleY(1.2);}}
+.scroll-txt{font-size:8px;letter-spacing:3px;color:var(--gold);}
+
+/* ── ANNOUNCEMENT BAR ── */
+.announce-bar{background:var(--gold);color:#000;text-align:center;padding:10px;font-size:10px;letter-spacing:3px;font-weight:600;}
+
+/* ── SECTION HEADER ── */
+.sec-head{text-align:center;padding:64px 0 40px;}
+.sec-head .eyebrow{font-size:9px;letter-spacing:5px;color:var(--gold);margin-bottom:12px;}
+.sec-head h2{font-family:'Playfair Display',serif;font-size:36px;letter-spacing:3px;margin-bottom:10px;}
+.gold-rule{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px;}
+.gold-rule::before,.gold-rule::after{content:'';flex:1;max-width:60px;height:1px;background:var(--gold);opacity:.5;}
+.gold-rule span{color:var(--gold);font-size:12px;}
+.sec-head p{font-size:11px;letter-spacing:3px;color:rgba(255,255,255,0.3);}
+
+/* ── CATEGORY BLOCKS — FLIP CARD ── */
+#home-cats{padding:0 40px 60px;}
+.cats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+.cat-block{cursor:pointer;perspective:1000px;}
+.cat-inner{aspect-ratio:3/4;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);}
+.cat-block:hover .cat-inner{transform:rotateY(180deg);}
+
+/* FRONT */
+.cat-front{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;border:0.5px solid rgba(255,255,255,0.07);}
+.cat-front-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .7s ease;}
+.cat-block:hover .cat-front-img{transform:scale(1.08);}
+.cat-front-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.15) 55%,transparent 100%);}
+.cat-front-label{position:absolute;bottom:0;left:0;right:0;padding:18px 14px;}
+.cat-front-en{font-size:8px;letter-spacing:3px;color:var(--gold);margin-bottom:4px;}
+.cat-front-ar{font-family:'Playfair Display',serif;font-size:17px;letter-spacing:2px;}
+.cat-front-count{font-size:9px;color:rgba(255,255,255,0.35);margin-top:3px;}
+
+/* SVG fallback (when no image) */
+.cat-svg-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;}
+.cv-pants{background:radial-gradient(ellipse at 50% 30%,#2a2850 0%,#0e0d1a 70%);}
+.cv-shirts{background:radial-gradient(ellipse at 50% 30%,#1e3c1e 0%,#0d160d 70%);}
+.cv-polo{background:radial-gradient(ellipse at 50% 30%,#3c1e1e 0%,#160e0e 70%);}
+.cv-tshirts{background:radial-gradient(ellipse at 50% 30%,#302e18 0%,#131208 70%);}
+.cv-shorts{background:radial-gradient(ellipse at 50% 30%,#163030 0%,#081414 70%);}
+.cat-icon{opacity:.8;filter:drop-shadow(0 6px 20px rgba(201,164,90,0.3));}
+
+/* BACK */
+.cat-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 16px;border:0.5px solid rgba(201,164,90,0.35);}
+.cv-back-pants{background:linear-gradient(145deg,#1c1a3a,#0a0912);}
+.cv-back-shirts{background:linear-gradient(145deg,#1a2e1a,#080f08);}
+.cv-back-polo{background:linear-gradient(145deg,#2e1a1a,#0f0808);}
+.cv-back-tshirts{background:linear-gradient(145deg,#28260e,#0d0c04);}
+.cv-back-shorts{background:linear-gradient(145deg,#0e2a2a,#040f0f);}
+.cat-back-icon{opacity:.25;margin-bottom:18px;}
+.cat-back-line{width:32px;height:1px;background:var(--gold);opacity:.5;margin:12px auto;}
+.cat-back-ar{font-family:'Playfair Display',serif;font-size:22px;letter-spacing:3px;margin-bottom:6px;}
+.cat-back-en{font-size:8px;letter-spacing:4px;color:var(--gold);margin-bottom:14px;}
+.cat-back-count{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:20px;}
+.cat-back-btn{display:inline-block;background:var(--gold);color:#000;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:3px;padding:10px 22px;font-weight:700;border:none;cursor:pointer;transition:background .2s;}
+.cat-back-btn:hover{background:var(--gold-dark);}
+.cat-back-disc{font-size:9px;color:#e74c3c;margin-top:10px;letter-spacing:1px;}
+
+/* Sale badge */
+.sale-badge{position:absolute;top:10px;right:10px;background:#c0392b;color:#fff;font-size:7px;letter-spacing:2px;padding:3px 7px;font-weight:700;z-index:5;}
+
+/* label below card */
+.cat-label-below{padding:10px 4px 0;text-align:center;}
+.cat-ar-below{font-family:'Playfair Display',serif;font-size:14px;letter-spacing:2px;color:var(--white);}
+
+/* ── DISCOUNT BANNER ── */
+.discount-banner{margin:0 40px 64px;background:linear-gradient(135deg,#1a1408 0%,#2a2010 50%,#1a1408 100%);border:1px solid rgba(201,164,90,0.3);padding:48px;text-align:center;position:relative;overflow:hidden;}
+.discount-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(201,164,90,0.08) 0%,transparent 70%);}
+.db-content{position:relative;}
+.db-eyebrow{font-size:9px;letter-spacing:5px;color:var(--gold);margin-bottom:12px;}
+.db-title{font-family:'Playfair Display',serif;font-size:42px;margin-bottom:8px;}
+.db-title span{color:var(--gold);}
+.db-sub{font-size:11px;letter-spacing:3px;color:rgba(255,255,255,0.4);margin-bottom:28px;}
+.db-code{display:inline-block;border:1px dashed rgba(201,164,90,0.5);padding:10px 32px;font-size:16px;letter-spacing:6px;color:var(--gold);font-weight:600;margin-bottom:28px;}
+.countdown{display:flex;gap:24px;justify-content:center;margin-top:16px;}
+.cd-item{text-align:center;}
+.cd-num{font-family:'Playfair Display',serif;font-size:36px;color:var(--gold);line-height:1;}
+.cd-lbl{font-size:8px;letter-spacing:3px;color:rgba(255,255,255,0.3);margin-top:4px;}
+
+/* ── PRODUCT GRID ── */
+#product-list-page{padding:0 40px 80px;display:none;}
+#product-list-page.active{display:block;}
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;padding-bottom:16px;border-bottom:0.5px solid var(--border);}
+.page-header h2{font-family:'Playfair Display',serif;font-size:28px;letter-spacing:3px;}
+.back-link{font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.4);cursor:pointer;display:flex;align-items:center;gap:6px;transition:color .2s;}
+.back-link:hover{color:var(--gold);}
+.filter-bar{display:flex;gap:8px;margin-bottom:28px;}
+.filter-btn{background:none;border:0.5px solid var(--border);color:rgba(255,255,255,0.4);padding:6px 16px;font-size:9px;letter-spacing:2px;cursor:pointer;font-family:'Jost',sans-serif;transition:all .2s;}
+.filter-btn.active,.filter-btn:hover{border-color:var(--gold);color:var(--gold);}
+.prods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.prod-card{cursor:pointer;position:relative;transition:transform .2s;}
+.prod-card:hover{transform:translateY(-3px);}
+.prod-img-wrap{aspect-ratio:3/4;overflow:hidden;position:relative;background:#111;}
+.prod-img-visual{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .5s;}
+.prod-card:hover .prod-img-visual{transform:scale(1.05);}
+.new-tag{position:absolute;top:10px;right:10px;background:var(--gold);color:#000;font-size:7px;letter-spacing:2px;padding:3px 7px;font-weight:700;}
+.disc-tag{position:absolute;top:10px;left:10px;background:#c0392b;color:#fff;font-size:7px;letter-spacing:2px;padding:3px 7px;font-weight:700;}
+.prod-info{padding:14px 0;}
+.prod-name{font-size:13px;letter-spacing:1px;margin-bottom:6px;}
+.prod-pricing{display:flex;align-items:baseline;gap:8px;}
+.prod-price{font-size:18px;font-weight:500;color:var(--white);}
+.prod-old{font-size:12px;color:rgba(255,255,255,0.25);text-decoration:line-through;}
+.prod-disc{font-size:10px;color:#e74c3c;font-weight:600;}
+
+/* ── PRODUCT DETAIL ── */
+#product-detail-page{padding:0 40px 80px;display:none;}
+#product-detail-page.active{display:block;}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.detail-img-main{aspect-ratio:3/4;overflow:hidden;position:relative;}
+.detail-img-visual{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+.detail-thumb-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
+.detail-thumb{aspect-ratio:1;overflow:hidden;cursor:pointer;border:1px solid transparent;transition:border-color .2s;}
+.detail-thumb:hover,.detail-thumb.active{border-color:var(--gold);}
+.det-right{padding-top:8px;}
+.det-cat-tag{font-size:8px;letter-spacing:4px;color:var(--gold);margin-bottom:12px;}
+.det-name{font-family:'Playfair Display',serif;font-size:32px;line-height:1.2;margin-bottom:20px;}
+.det-pricing{display:flex;align-items:baseline;gap:12px;margin-bottom:24px;}
+.det-price-now{font-size:32px;font-weight:300;}
+.det-price-old{font-size:16px;color:rgba(255,255,255,0.25);text-decoration:line-through;}
+.det-disc-pill{background:#c0392b;color:#fff;font-size:9px;padding:4px 10px;letter-spacing:1px;font-weight:700;}
+.det-divider{height:0.5px;background:var(--border);margin:20px 0;}
+.det-label{font-size:8px;letter-spacing:3px;color:rgba(255,255,255,0.35);margin-bottom:10px;}
+.sizes-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+.sz-btn{min-width:44px;height:44px;padding:0 12px;border:0.5px solid rgba(255,255,255,0.15);background:none;color:rgba(255,255,255,0.6);font-family:'Jost',sans-serif;font-size:11px;cursor:pointer;transition:all .2s;letter-spacing:1px;}
+.sz-btn:hover,.sz-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(201,164,90,0.05);}
+.qty-row{display:flex;align-items:center;gap:0;margin-bottom:24px;width:120px;border:0.5px solid rgba(255,255,255,0.15);}
+.qty-btn{width:36px;height:36px;background:none;border:none;color:#fff;font-size:18px;cursor:pointer;transition:background .2s;}
+.qty-btn:hover{background:rgba(255,255,255,0.06);}
+.qty-num{flex:1;text-align:center;font-size:14px;}
+.add-btn{width:100%;padding:16px;background:var(--gold);color:#000;border:none;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:4px;cursor:pointer;font-weight:700;margin-bottom:10px;transition:all .2s;}
+.add-btn:hover{background:var(--gold-dark);}
+.add-btn.added{background:#2d6a2d;color:#fff;}
+.wish-btn{width:100%;padding:14px;background:none;border:0.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:3px;cursor:pointer;transition:all .2s;}
+.wish-btn:hover{border-color:var(--gold);color:var(--gold);}
+.det-desc-txt{font-size:12px;line-height:1.9;color:rgba(255,255,255,0.5);margin-bottom:20px;}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;}
+.spec-item{font-size:11px;color:rgba(255,255,255,.3);}
+.spec-item strong{color:rgba(255,255,255,.6);font-weight:400;display:block;margin-bottom:2px;}
+
+/* ── FOOTER ── */
+.site-footer{border-top:0.5px solid var(--border);padding:56px 48px 32px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:22px;letter-spacing:6px;margin-bottom:12px;}
+.footer-logo em{color:var(--gold);font-style:normal;}
+.footer-about{font-size:12px;color:rgba(255,255,255,.3);line-height:1.8;margin-bottom:20px;}
+.footer-social{display:flex;gap:12px;}
+.social-btn{width:32px;height:32px;border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;transition:border-color .2s;}
+.social-btn:hover{border-color:var(--gold);}
+.footer-col h4{font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:16px;text-transform:uppercase;}
+.footer-col a{display:block;font-size:11px;color:rgba(255,255,255,.3);margin-bottom:8px;cursor:pointer;text-decoration:none;transition:color .2s;}
+.footer-col a:hover{color:rgba(255,255,255,.7);}
+.foot-bottom{padding:20px 48px;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.foot-copy{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.15);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--gold);color:#000;padding:12px 32px;font-size:10px;letter-spacing:3px;font-weight:700;z-index:9999;transition:transform .3s;pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ── HOME ── */
+#home-page{display:block;}
+#home-page.hidden{display:none;}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE -->
+<div class="announce-bar" id="announce-bar">🔥 عرض خاص — خصم 30% على كل الشراويل — كود: SUMMER30</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="goHome()">PUR<em>E</em></div>
+  <div class="nav-cats">
+    <a onclick="showCat('pants')" data-cat="pants">بنطلونات</a>
+    <a onclick="showCat('shirts')" data-cat="shirts">قمصان</a>
+    <a onclick="showCat('polo')" data-cat="polo">بولو</a>
+    <a onclick="showCat('tshirts')" data-cat="tshirts">تيشرتات</a>
+    <a onclick="showCat('shorts')" data-cat="shorts">شراويل</a>
+  </div>
+  <div class="nav-right">
+    <button class="cart-pill" onclick="openCart()">
+      <span>CART</span>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home-page" style="padding-top:64px;">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-visual">
+      <div class="hv-col">
+        <div class="hv-fill"></div>
+        <svg class="hv-fig" width="120" height="300" viewBox="0 0 120 300">
+          <rect x="35" y="20" width="50" height="60" rx="25" fill="rgba(201,164,90,0.6)"/>
+          <rect x="25" y="80" width="70" height="100" rx="8" fill="rgba(201,164,90,0.5)"/>
+          <rect x="30" y="175" width="25" height="110" rx="6" fill="rgba(201,164,90,0.4)"/>
+          <rect x="65" y="175" width="25" height="110" rx="6" fill="rgba(201,164,90,0.4)"/>
+        </svg>
+      </div>
+      <div class="hv-col"><div class="hv-fill"></div></div>
+      <div class="hv-col">
+        <div class="hv-fill"></div>
+        <svg class="hv-fig" width="120" height="300" viewBox="0 0 120 300">
+          <rect x="35" y="20" width="50" height="60" rx="25" fill="rgba(201,164,90,0.6)"/>
+          <rect x="20" y="80" width="80" height="90" rx="8" fill="rgba(201,164,90,0.5)"/>
+          <rect x="28" y="165" width="28" height="120" rx="6" fill="rgba(201,164,90,0.4)"/>
+          <rect x="64" y="165" width="28" height="120" rx="6" fill="rgba(201,164,90,0.4)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow" id="hero-eyebrow">MENSWEAR — EGYPT</div>
+      <h1 id="hero-title">PURE</h1>
+      <p class="hero-sub" id="hero-subtitle">QUALITY REDEFINED — NEW COLLECTION 2026</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="document.getElementById('home-cats').scrollIntoView({behavior:'smooth'})">تسوق الآن</button>
+        <button class="btn-outline" onclick="showCat('tshirts')">العروض</button>
+      </div>
+    </div>
+    <div class="hero-scroll" onclick="document.getElementById('home-cats').scrollIntoView({behavior:'smooth'})">
+      <div class="scroll-line"></div>
+      <div class="scroll-txt">SCROLL</div>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="sec-head">
+    <div class="eyebrow">SHOP BY CATEGORY</div>
+    <h2>الكولكشن</h2>
+    <div class="gold-rule"><span>✦</span></div>
+    <p>اختر الفئة واستكشف المنتجات</p>
+  </div>
+
+  <div id="home-cats">
+    <div class="cats-grid" id="cats-grid">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+  <!-- DISCOUNT BANNER -->
+  <div class="discount-banner" id="discount-section">
+    <div class="db-content">
+      <div class="db-eyebrow" id="db-eyebrow">عرض محدود</div>
+      <div class="db-title"><span id="db-percent">30%</span> خصم</div>
+      <div class="db-sub" id="db-sub">على جميع منتجات الشراويل — لفترة محدودة</div>
+      <div class="db-code" id="db-code">SUMMER30</div>
+      <p style="font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.3);margin-bottom:20px;">العرض ينتهي خلال</p>
+      <div class="countdown">
+        <div class="cd-item"><div class="cd-num" id="cd-h">12</div><div class="cd-lbl">ساعة</div></div>
+        <div class="cd-item"><div class="cd-num" id="cd-m">34</div><div class="cd-lbl">دقيقة</div></div>
+        <div class="cd-item"><div class="cd-num" id="cd-s">56</div><div class="cd-lbl">ثانية</div></div>
+      </div>
+      <br><br>
+      <button class="btn-gold" onclick="showCat('shorts')">تسوق العرض</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="site-footer" id="site-footer">
+    <div>
+      <div class="footer-logo">PUR<em>E</em></div>
+      <p class="footer-about" id="footer-about">ملابس رجالية بجودة عالية وتصاميم عصرية تناسب كل مناسبة وكل ذوق.</p>
+      <div class="footer-social">
+        <div class="social-btn">f</div>
+        <div class="social-btn">in</div>
+        <div class="social-btn">ig</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>تسوق</h4>
+      <a onclick="showCat('pants')">بنطلونات</a>
+      <a onclick="showCat('shirts')">قمصان</a>
+      <a onclick="showCat('polo')">بولو</a>
+      <a onclick="showCat('tshirts')">تيشرتات</a>
+      <a onclick="showCat('shorts')">شراويل</a>
+    </div>
+    <div class="footer-col">
+      <h4>مساعدة</h4>
+      <a>سياسة الإرجاع</a>
+      <a>الشحن والتوصيل</a>
+      <a>دليل المقاسات</a>
+      <a>تواصل معنا</a>
+    </div>
+    <div class="footer-col">
+      <h4>تواصل</h4>
+      <a id="footer-email">info@pure-eg.com</a>
+      <a id="footer-phone">+20 100 000 0000</a>
+      <a id="footer-address">القاهرة، مصر</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-copy">© 2026 PURE MENSWEAR — ALL RIGHTS RESERVED</span>
+    <span class="foot-copy" id="footer-tagline">MADE IN EGYPT WITH LOVE</span>
+  </div>
+</div>
+
+<!-- PRODUCT LIST PAGE -->
+<div id="product-list-page" style="padding-top:80px;">
+  <div style="padding:0 40px;">
+    <div class="page-header">
+      <h2 id="list-title">البنطلونات</h2>
+      <span class="back-link" onclick="goHome()">← الرئيسية</span>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active">الكل</button>
+      <button class="filter-btn">الأرخص أولاً</button>
+      <button class="filter-btn">الأغلى أولاً</button>
+      <button class="filter-btn">منتجات جديدة</button>
+      <button class="filter-btn" style="color:#e74c3c;border-color:#e74c3c44;">عروض فقط</button>
+    </div>
+  </div>
+  <div class="prods-grid" id="prods-grid" style="padding:0 40px;"></div>
+</div>
+
+<!-- PRODUCT DETAIL PAGE -->
+<div id="product-detail-page" style="padding-top:96px;">
+  <div style="padding:0 40px 16px;"><span class="back-link" id="det-back" onclick="">← رجوع</span></div>
+  <div class="detail-grid">
+    <div>
+      <div class="detail-img-main" id="det-img-main"></div>
+    </div>
+    <div class="det-right">
+      <div class="det-cat-tag" id="det-cat-tag"></div>
+      <div class="det-name" id="det-name"></div>
+      <div class="det-pricing">
+        <div class="det-price-now" id="det-price-now"></div>
+        <div class="det-price-old" id="det-price-old"></div>
+        <div class="det-disc-pill" id="det-disc-pill" style="display:none;"></div>
+      </div>
+      <div class="det-divider"></div>
+      <div class="det-label">اختر المقاس</div>
+      <div class="sizes-row">
+        <button class="sz-btn" onclick="selSz(this)">S</button>
+        <button class="sz-btn active" onclick="selSz(this)">M</button>
+        <button class="sz-btn" onclick="selSz(this)">L</button>
+        <button class="sz-btn" onclick="selSz(this)">XL</button>
+        <button class="sz-btn" onclick="selSz(this)">XXL</button>
+      </div>
+      <div class="det-label">الكمية</div>
+      <div class="qty-row">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span class="qty-num" id="qty-num">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <button class="add-btn" id="add-cart-btn" onclick="addToCart()">إضافة للسلة</button>
+      <button class="wish-btn">♡ إضافة للمفضلة</button>
+      <div class="det-divider"></div>
+      <p class="det-desc-txt" id="det-desc-txt"></p>
+      <div class="specs-grid" id="det-specs-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ أُضيف للسلة</div>
+
+<script>
+// ── DATA (synced with admin via localStorage) ──
+const DEFAULT_CATS = {
+  pants:  {ar:'بنطلونات', en:'PANTS',   bg:'cv-pants',   icon:'pants'},
+  shirts: {ar:'قمصان',    en:'SHIRTS',  bg:'cv-shirts',  icon:'shirts'},
+  polo:   {ar:'بولو',     en:'POLO',    bg:'cv-polo',    icon:'polo'},
+  tshirts:{ar:'تيشرتات',  en:'T-SHIRTS',bg:'cv-tshirts', icon:'tshirts'},
+  shorts: {ar:'شراويل',   en:'SHORTS',  bg:'cv-shorts',  icon:'shorts'},
+};
+
+const ICONS = {
+  pants:  `<svg width="90" height="200" viewBox="0 0 90 200" class="cat-icon"><path d="M10 10 h70 l-10 90 h-15 l-5 90 h-10 l-5-90 h-15 l-10-90z" fill="rgba(201,164,90,0.6)" stroke="rgba(201,164,90,0.3)" stroke-width="1"/></svg>`,
+  shirts: `<svg width="110" height="180" viewBox="0 0 110 180" class="cat-icon"><path d="M20 20 L0 50 L20 60 L20 170 L90 170 L90 60 L110 50 L90 20 Q70 35 55 35 Q40 35 20 20Z" fill="rgba(201,164,90,0.6)" stroke="rgba(201,164,90,0.3)" stroke-width="1"/></svg>`,
+  polo:   `<svg width="110" height="170" viewBox="0 0 110 170" class="cat-icon"><path d="M20 20 L0 50 L20 58 L20 160 L90 160 L90 58 L110 50 L90 20 Q70 30 58 40 Q50 44 52 35 Q55 20 55 20 Q55 20 58 40 Q52 44 52 35Z" fill="none"/><path d="M20 20 L0 50 L20 58 L20 160 L90 160 L90 58 L110 50 L90 20 Q70 30 55 45 Q40 30 20 20Z" fill="rgba(201,164,90,0.6)" stroke="rgba(201,164,90,0.3)" stroke-width="1"/><rect x="48" y="20" width="14" height="30" rx="3" fill="rgba(201,164,90,0.4)"/></svg>`,
+  tshirts:`<svg width="110" height="160" viewBox="0 0 110 160" class="cat-icon"><path d="M25 20 L0 55 L22 65 L22 150 L88 150 L88 65 L110 55 L85 20 Q68 38 55 38 Q42 38 25 20Z" fill="rgba(201,164,90,0.6)" stroke="rgba(201,164,90,0.3)" stroke-width="1"/></svg>`,
+  shorts: `<svg width="90" height="140" viewBox="0 0 90 140" class="cat-icon"><path d="M5 10 h80 l-8 80 h-18 l-4 40 h-10 l-4-40 h-18 l-8-80z" fill="rgba(201,164,90,0.6)" stroke="rgba(201,164,90,0.3)" stroke-width="1"/></svg>`,
+};
+
+const PRODUCT_VISUALS = {
+  pants:  (n)=>`<div class="prod-img-visual" style="background:linear-gradient(${150+n*20}deg,#1c1a2e,#0e0d1a,#1a1424);flex-direction:column;gap:8px;">${ICONS.pants}<span style="font-size:9px;letter-spacing:2px;color:rgba(201,164,90,0.5);">PANTS</span></div>`,
+  shirts: (n)=>`<div class="prod-img-visual" style="background:linear-gradient(${150+n*20}deg,#1a241a,#0d160d,#141e14);flex-direction:column;gap:8px;">${ICONS.shirts}<span style="font-size:9px;letter-spacing:2px;color:rgba(201,164,90,0.5);">SHIRT</span></div>`,
+  polo:   (n)=>`<div class="prod-img-visual" style="background:linear-gradient(${150+n*20}deg,#241a1a,#160e0e,#1e1414);flex-direction:column;gap:8px;">${ICONS.polo}<span style="font-size:9px;letter-spacing:2px;color:rgba(201,164,90,0.5);">POLO</span></div>`,
+  tshirts:(n)=>`<div class="prod-img-visual" style="background:linear-gradient(${150+n*20}deg,#201e14,#131208,#1c1a10);flex-direction:column;gap:8px;">${ICONS.tshirts}<span style="font-size:9px;letter-spacing:2px;color:rgba(201,164,90,0.5);">T-SHIRT</span></div>`,
+  shorts: (n)=>`<div class="prod-img-visual" style="background:linear-gradient(${150+n*20}deg,#142020,#081414,#101e1e);flex-direction:column;gap:8px;">${ICONS.shorts}<span style="font-size:9px;letter-spacing:2px;color:rgba(201,164,90,0.5);">SHORTS</span></div>`,
+};
+
+const DEFAULT_PRODUCTS = [
+  {id:1,name:'Classic Slim Fit',price:850,old:1100,cat:'pants',desc:'بنطلون سليم فيت كلاسيكي مصنوع من قطن مصري ممتاز، مثالي للإطلالات الرسمية وشبه الرسمية.',code:'PUR-P001',isNew:true,material:'قطن 100%',season:'كل المواسم'},
+  {id:2,name:'Casual Chino',price:720,old:0,cat:'pants',desc:'شينو كاجوال بقصة مريحة مناسبة للنزهات والأوقات الخارجية.',code:'PUR-P002',isNew:false,material:'قطن 98% / إيلاستين 2%',season:'كل المواسم'},
+  {id:3,name:'Formal Trousers',price:980,old:1200,cat:'pants',desc:'بنطلون رسمي بقصة مستقيمة، مثالي للمناسبات الرسمية والمقابلات.',code:'PUR-P003',isNew:true,material:'صوف خفيف',season:'خريف / شتاء'},
+  {id:4,name:'Oxford Button-Down',price:650,old:800,cat:'shirts',desc:'قميص أكسفورد كلاسيكي بأزرار أمامية، مصنوع من قطن ناعم عالي الجودة.',code:'PUR-S001',isNew:true,material:'قطن 100%',season:'كل المواسم'},
+  {id:5,name:'Linen Summer Shirt',price:590,old:0,cat:'shirts',desc:'قميص كتان خفيف مثالي لفصل الصيف والإطلالات الكاجوال.',code:'PUR-S002',isNew:false,material:'كتان 100%',season:'صيف'},
+  {id:6,name:'Slim Formal Shirt',price:750,old:900,cat:'shirts',desc:'قميص رسمي بقصة سليم أنيق لكل المناسبات.',code:'PUR-S003',isNew:false,material:'قطن 100%',season:'كل المواسم'},
+  {id:7,name:'Classic Pique Polo',price:480,old:600,cat:'polo',desc:'بولو شيرت كلاسيكي من قماش البيكيه الناعم، مريح طوال اليوم.',code:'PUR-PO001',isNew:true,material:'بيكيه قطن',season:'ربيع / صيف'},
+  {id:8,name:'Slim Polo',price:420,old:0,cat:'polo',desc:'بولو سليم فيت أنيق مناسب للإطلالات الكاجوال.',code:'PUR-PO002',isNew:false,material:'بيكيه قطن',season:'كل المواسم'},
+  {id:9,name:'Premium Polo',price:560,old:700,cat:'polo',desc:'بولو بريميوم من خامات عالية الجودة، يدوم طويلاً.',code:'PUR-PO003',isNew:true,material:'بيكيه مصري',season:'كل المواسم'},
+  {id:10,name:'Basic White Tee',price:280,old:0,cat:'tshirts',desc:'تيشرت أبيض أساسي من قطن ناعم يناسب جميع الإطلالات.',code:'PUR-T001',isNew:false,material:'قطن 100%',season:'كل المواسم'},
+  {id:11,name:'Oversized Graphic Tee',price:350,old:420,cat:'tshirts',desc:'تيشرت أوفرسايز بطبعة مميزة لإطلالة عصرية.',code:'PUR-T002',isNew:true,material:'قطن 100%',season:'صيف'},
+  {id:12,name:'V-Neck Essential',price:260,old:0,cat:'tshirts',desc:'تيشرت ياقة V أساسي مريح للاستخدام اليومي.',code:'PUR-T003',isNew:false,material:'قطن 95% / لايكرا 5%',season:'كل المواسم'},
+  {id:13,name:'Casual Jogger Short',price:320,old:400,cat:'shorts',desc:'شورت جوجر كاجوال مريح مثالي للتمارين والأوقات الخارجية.',code:'PUR-SH001',isNew:true,material:'قطن / بوليستر',season:'صيف'},
+  {id:14,name:'Linen Beach Short',price:380,old:0,cat:'shorts',desc:'شورت كتان خفيف مثالي للشاطئ وأوقات الفراغ.',code:'PUR-SH002',isNew:false,material:'كتان 100%',season:'صيف'},
+  {id:15,name:'Chino Short',price:420,old:520,cat:'shorts',desc:'شورت شينو أنيق مناسب للإطلالات الكاجوال الأنيقة.',code:'PUR-SH003',isNew:false,material:'قطن 98%',season:'ربيع / صيف'},
+];
+
+// ── STATE ──
+let products = JSON.parse(localStorage.getItem('pure_products') || 'null') || DEFAULT_PRODUCTS;
+let settings = JSON.parse(localStorage.getItem('pure_settings') || 'null') || {
+  heroTitle:'PURE', heroSub:'QUALITY REDEFINED — NEW COLLECTION 2026',
+  heroEyebrow:'MENSWEAR — EGYPT', announceText:'🔥 عرض خاص — خصم 30% على كل الشراويل — كود: SUMMER30',
+  announceVisible:false, discountVisible:false, discountPercent:'30', discountCode:'SUMMER30',
+  discountSub:'على جميع منتجات الشراويل — لفترة محدودة', discountEyebrow:'عرض محدود',
+  footerAbout:'ملابس رجالية بجودة عالية وتصاميم عصرية تناسب كل مناسبة وكل ذوق.',
+  footerEmail:'info@pure-eg.com', footerPhone:'+20 100 000 0000', footerAddress:'القاهرة، مصر',
+  footerTagline:'MADE IN EGYPT WITH LOVE',
+};
+
+let cartCount = 0;
+let currentCat = 'pants';
+let currentProd = null;
+let qty = 1;
+
+// ── APPLY SETTINGS ──
+function applySettings() {
+  const s = settings;
+  document.getElementById('hero-title').textContent = s.heroTitle;
+  document.getElementById('hero-subtitle').textContent = s.heroSub;
+  document.getElementById('hero-eyebrow').textContent = s.heroEyebrow;
+  const ab = document.getElementById('announce-bar');
+  if (s.announceVisible) { ab.style.display='block'; ab.textContent = s.announceText; }
+  else ab.style.display = 'none';
+  document.getElementById('db-percent').textContent = s.discountPercent + '%';
+  document.getElementById('db-code').textContent = s.discountCode;
+  document.getElementById('db-sub').textContent = s.discountSub;
+  document.getElementById('db-eyebrow').textContent = s.discountEyebrow;
+  document.getElementById('footer-about').textContent = s.footerAbout;
+  document.getElementById('footer-email').textContent = s.footerEmail;
+  document.getElementById('footer-phone').textContent = s.footerPhone;
+  document.getElementById('footer-address').textContent = s.footerAddress;
+  document.getElementById('footer-tagline').textContent = s.footerTagline;
+  // discount section
+  const ds = document.getElementById('discount-section');
+  if(ds) ds.style.display = s.discountVisible ? '' : 'none';
+}
+
+// ── RENDER CATEGORIES ──
+const BIG_ICONS = {
+  pants: `<svg width="100" height="220" viewBox="0 0 90 200" class="cat-icon"><path d="M10 10 h70 l-10 90 h-15 l-5 90 h-10 l-5-90 h-15 l-10-90z" fill="rgba(201,164,90,0.75)" stroke="rgba(201,164,90,0.5)" stroke-width="1.5"/><line x1="45" y1="10" x2="45" y2="100" stroke="rgba(201,164,90,0.3)" stroke-width="1"/></svg>`,
+  shirts:`<svg width="120" height="200" viewBox="0 0 110 180" class="cat-icon"><path d="M20 20 L0 50 L20 60 L20 170 L90 170 L90 60 L110 50 L90 20 Q70 35 55 35 Q40 35 20 20Z" fill="rgba(201,164,90,0.75)" stroke="rgba(201,164,90,0.5)" stroke-width="1.5"/></svg>`,
+  polo:  `<svg width="120" height="190" viewBox="0 0 110 170" class="cat-icon"><path d="M20 20 L0 50 L20 58 L20 160 L90 160 L90 58 L110 50 L90 20 Q70 30 55 45 Q40 30 20 20Z" fill="rgba(201,164,90,0.75)" stroke="rgba(201,164,90,0.5)" stroke-width="1.5"/><rect x="48" y="20" width="14" height="28" rx="3" fill="rgba(201,164,90,0.5)"/></svg>`,
+  tshirts:`<svg width="120" height="180" viewBox="0 0 110 160" class="cat-icon"><path d="M25 20 L0 55 L22 65 L22 150 L88 150 L88 65 L110 55 L85 20 Q68 38 55 38 Q42 38 25 20Z" fill="rgba(201,164,90,0.75)" stroke="rgba(201,164,90,0.5)" stroke-width="1.5"/></svg>`,
+  shorts:`<svg width="100" height="160" viewBox="0 0 90 140" class="cat-icon"><path d="M5 10 h80 l-8 80 h-18 l-4 40 h-10 l-4-40 h-18 l-8-80z" fill="rgba(201,164,90,0.75)" stroke="rgba(201,164,90,0.5)" stroke-width="1.5"/><line x1="45" y1="10" x2="45" y2="90" stroke="rgba(201,164,90,0.3)" stroke-width="1"/></svg>`,
+};
+
+// cat images stored in localStorage
+let catImages = JSON.parse(localStorage.getItem('pure_cat_images')||'{}');
+
+function renderCats() {
+  const g = document.getElementById('cats-grid');
+  const discVisible = settings.discountVisible === true;
+  // reload catImages in case admin updated
+  catImages = JSON.parse(localStorage.getItem('pure_cat_images')||'{}');
+  g.innerHTML = Object.entries(DEFAULT_CATS).map(([key,c]) => {
+    const catProds = products.filter(p=>p.cat===key);
+    const hasDiscount = catProds.some(p=>p.old>0);
+    const img = catImages[key];
+    const backColors = {pants:'cv-back-pants',shirts:'cv-back-shirts',polo:'cv-back-polo',tshirts:'cv-back-tshirts',shorts:'cv-back-shorts'};
+
+    const frontContent = img
+      ? `<div class="cat-front-img" style="background-image:url('${img}');position:absolute;inset:0;background-size:cover;background-position:center;"></div>
+         <div class="cat-front-overlay"></div>`
+      : `<div class="cat-svg-wrap ${c.bg}">${BIG_ICONS[key]}</div>
+         <div class="cat-front-overlay"></div>`;
+
+    return `<div class="cat-block">
+      <div class="cat-inner">
+        <!-- FRONT -->
+        <div class="cat-front ${img?'':''}">
+          ${frontContent}
+          ${hasDiscount && discVisible ? '<div class="sale-badge">SALE</div>' : ''}
+          <div class="cat-front-label">
+            <div class="cat-front-en">${c.en}</div>
+            <div class="cat-front-ar">${c.ar}</div>
+            <div class="cat-front-count">${catProds.length} منتج</div>
+          </div>
+        </div>
+        <!-- BACK -->
+        <div class="cat-back ${backColors[key]}">
+          <div class="cat-back-icon">${BIG_ICONS[key]}</div>
+          <div class="cat-back-ar">${c.ar}</div>
+          <div class="cat-back-en">${c.en}</div>
+          <div class="cat-back-line"></div>
+          <div class="cat-back-count">${catProds.length} منتج متاح</div>
+          ${hasDiscount && discVisible ? `<div class="cat-back-disc">🏷 عروض وخصومات</div>` : ''}
+          <button class="cat-back-btn" onclick="showCat('${key}')">تسوق الآن ←</button>
+        </div>
+      </div>
+      <div class="cat-label-below"><div class="cat-ar-below">${c.ar}</div></div>
+    </div>`;
+  }).join('');
+  // discount section visibility
+  const ds = document.getElementById('discount-section');
+  if(ds) ds.style.display = discVisible ? '' : 'none';
+}
+
+// ── PAGES ──
+function hidePgs() {
+  document.getElementById('home-page').classList.add('hidden');
+  document.getElementById('product-list-page').classList.remove('active');
+  document.getElementById('product-detail-page').classList.remove('active');
+  document.querySelectorAll('.nav-cats a').forEach(a=>a.classList.remove('active-nav'));
+}
+
+function goHome() {
+  hidePgs();
+  document.getElementById('home-page').classList.remove('hidden');
+  renderCats();
+}
+
+function showCat(cat) {
+  currentCat = cat;
+  hidePgs();
+  document.getElementById('product-list-page').classList.add('active');
+  document.getElementById('product-list-page').scrollTop = 0;
+  window.scrollTo(0,0);
+  const catInfo = DEFAULT_CATS[cat];
+  document.getElementById('list-title').textContent = catInfo.ar;
+  document.querySelector(`[data-cat="${cat}"]`).classList.add('active-nav');
+  const grid = document.getElementById('prods-grid');
+  const catProds = products.filter(p=>p.cat===cat);
+  grid.innerHTML = catProds.map((p,i) => {
+    const disc = p.old > 0 ? Math.round((1-p.price/p.old)*100) : 0;
+    return `<div class="prod-card" onclick="showProduct(${p.id})">
+      <div class="prod-img-wrap">
+        ${PRODUCT_VISUALS[p.cat](i)}
+        ${p.isNew ? '<span class="new-tag">NEW</span>' : ''}
+        ${disc > 0 ? `<span class="disc-tag">-${disc}%</span>` : ''}
+      </div>
+      <div class="prod-info">
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-pricing">
+          <span class="prod-price">EGP ${p.price.toLocaleString()}</span>
+          ${p.old ? `<span class="prod-old">EGP ${p.old.toLocaleString()}</span>` : ''}
+          ${disc > 0 ? `<span class="prod-disc">وفّر ${p.old-p.price} جنيه</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // filter buttons
+  document.querySelectorAll('.filter-btn').forEach((btn,i) => {
+    btn.onclick = () => {
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      let sorted = [...catProds];
+      if(i===1) sorted.sort((a,b)=>a.price-b.price);
+      else if(i===2) sorted.sort((a,b)=>b.price-a.price);
+      else if(i===3) sorted = sorted.filter(p=>p.isNew);
+      else if(i===4) sorted = sorted.filter(p=>p.old>0);
+      grid.innerHTML = sorted.map((p,j)=>{
+        const d=p.old>0?Math.round((1-p.price/p.old)*100):0;
+        return `<div class="prod-card" onclick="showProduct(${p.id})">
+          <div class="prod-img-wrap">
+            ${PRODUCT_VISUALS[p.cat](j)}
+            ${p.isNew?'<span class="new-tag">NEW</span>':''}
+            ${d>0?`<span class="disc-tag">-${d}%</span>`:''}
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">${p.name}</div>
+            <div class="prod-pricing">
+              <span class="prod-price">EGP ${p.price.toLocaleString()}</span>
+              ${p.old?`<span class="prod-old">EGP ${p.old.toLocaleString()}</span>`:''}
+              ${d>0?`<span class="prod-disc">وفّر ${p.old-p.price} جنيه</span>`:''}
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+    };
+  });
+}
+
+function showProduct(id) {
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  currentProd = p;
+  qty = 1;
+  hidePgs();
+  document.getElementById('product-detail-page').classList.add('active');
+  window.scrollTo(0,0);
+  document.getElementById('det-back').onclick = ()=>showCat(p.cat);
+  document.getElementById('det-cat-tag').textContent = DEFAULT_CATS[p.cat].en;
+  document.getElementById('det-name').textContent = p.name;
+  document.getElementById('det-price-now').textContent = 'EGP ' + p.price.toLocaleString();
+  const oldEl = document.getElementById('det-price-old');
+  const discEl = document.getElementById('det-disc-pill');
+  if(p.old > 0) {
+    oldEl.textContent = 'EGP ' + p.old.toLocaleString();
+    const d = Math.round((1-p.price/p.old)*100);
+    discEl.textContent = '-'+d+'%';
+    discEl.style.display = 'inline-block';
+  } else {
+    oldEl.textContent = ''; discEl.style.display = 'none';
+  }
+  document.getElementById('det-desc-txt').textContent = p.desc;
+  document.getElementById('qty-num').textContent = '1';
+  document.getElementById('det-img-main').innerHTML = `<div class="detail-img-visual" style="background:linear-gradient(145deg,${p.cat==='pants'?'#1c1a2e,#0e0d1a':p.cat==='shirts'?'#1a241a,#0d160d':p.cat==='polo'?'#241a1a,#160e0e':p.cat==='tshirts'?'#201e14,#131208':'#142020,#081414'});height:100%;align-items:center;justify-content:center;display:flex;flex-direction:column;gap:16px;">${ICONS[p.cat]}<span style="font-size:10px;letter-spacing:3px;color:rgba(201,164,90,0.5);">${p.code}</span></div>`;
+  document.getElementById('det-specs-grid').innerHTML = `
+    <div class="spec-item"><strong>الخامة</strong>${p.material||'قطن 100%'}</div>
+    <div class="spec-item"><strong>الموسم</strong>${p.season||'كل المواسم'}</div>
+    <div class="spec-item"><strong>الغسيل</strong>يدوي / 30°</div>
+    <div class="spec-item"><strong>كود المنتج</strong>${p.code}</div>
+    ${p.isNew?'<div class="spec-item"><strong>وضع</strong><span style="color:var(--gold);">منتج جديد ✦</span></div>':''}
+    ${p.old>0?'<div class="spec-item"><strong>التوفير</strong><span style="color:#e74c3c;">EGP '+(p.old-p.price).toLocaleString()+'</span></div>':''}
+  `;
+  const addBtn = document.getElementById('add-cart-btn');
+  addBtn.textContent = 'إضافة للسلة';
+  addBtn.className = 'add-btn';
+}
+
+function selSz(b){ document.querySelectorAll('.sz-btn').forEach(s=>s.classList.remove('active')); b.classList.add('active'); }
+function changeQty(d){ qty=Math.max(1,qty+d); document.getElementById('qty-num').textContent=qty; }
+
+function addToCart() {
+  cartCount += qty;
+  document.getElementById('cart-count').textContent = cartCount;
+  const btn = document.getElementById('add-cart-btn');
+  btn.textContent = '✓ أُضيف للسلة';
+  btn.classList.add('added');
+  showToast();
+  setTimeout(()=>{ btn.textContent='إضافة للسلة'; btn.className='add-btn'; },2500);
+}
+function openCart(){ showToast('🛒 السلة: '+cartCount+' منتج'); }
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg||'✓ أُضيف للسلة'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
+
+// ── COUNTDOWN ──
+function startCountdown(){
+  let h=12,m=34,s=56;
+  setInterval(()=>{
+    s--;if(s<0){s=59;m--;if(m<0){m=59;h--;if(h<0)h=0;}}
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  },1000);
+}
+
+// ── SYNC from admin ──
+function syncFromAdmin(){
+  const p=localStorage.getItem('pure_products');
+  const s=localStorage.getItem('pure_settings');
+  if(p) products=JSON.parse(p);
+  if(s) settings=JSON.parse(s);
+  applySettings();
+  renderCats();
+}
+window.addEventListener('storage',syncFromAdmin);
+
+// ── INIT ──
+applySettings();
+renderCats();
+startCountdown();
+</script>
+</body>
+</html>
